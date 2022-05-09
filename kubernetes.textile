@@ -1,0 +1,53 @@
+Kuberneties
+
+There are many ways to install k8s 
+1. kubeadm- Bare mettal server
+2. minikube- for virtual environment of server
+3. kops - for aws
+4. kubernetes for GCP- 
+
+After installing k8s intilliaze k8s cluster
+
+kubeadm init --apiserver-advertise-address=172.31.22.231 --pod-network-cidr=192.168.0.0/16  --ignore-preflight-errors=NumCPU,Mem
+
+
+kubeadm join 172.31.30.221:6443 --token n10g0k.2lx3njtzx8keh3fe  --discovery-token-unsafe-skip-ca-verification 
+
+kubeadm join 172.31.30.221:6443 --token gycbb4.v016afae9h0nd26a \
+        --discovery-token-ca-cert-hash sha256:45219a82d641183370b2a8af7951d3ffad5affed8269f08987d0c71d79fd493b
+
+
+
+
+To start using your cluster, you need to run the following as a regular user on master:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+Now you can check 
+kubectl get nodes
+
+CNI plugins: adhere to the Container Network Interface (CNI) specification, designed for interoperability.
+
+curl https://projectcalico.docs.tigera.io/manifests/calico.yaml -O
+
+kubectl apply -f calico.yaml
+
+kubectl get pods --all-namespaces
+
+
+_______________________________________________________________________
+
+Architecture of Kuberneties
+
+Pods:- Replica set strongly coupled for High Availbilty
+Services:- For load balancing the request to pods in round robin.
+Ingress:- Is an object to allow to access k8s Services from outside k8s cluster. Ingress is used when u have multiple service to access from outside
+
+
+Types of service in K8s
+
+1. Nodeport:- application can access from localhost:<portassigned>
+2. loadbalancing:- used for loadbalancing 

@@ -1,0 +1,23 @@
+provider "aws"{
+  region= "us-east-1"
+  access_key= "AKIAQX65P4NFEHBKGBOQ"
+  secret_key= "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"
+}
+resource "aws_instance" "main"{
+  ami= "ami-0c4f7023847b90238"
+  count = 2
+  instance_type = "t2.micro"
+  key_name = "rawat-key"
+  tags = {
+      Name= "Kub-slave"    
+  }
+}
+resource "aws_instance" "main2"{
+  ami= "ami-0c4f7023847b90238"
+  count = 1
+  instance_type = "t2.medium"
+  key_name = "rawat-key"
+  tags = {
+      Name= "Kub-master"    
+  }
+}
